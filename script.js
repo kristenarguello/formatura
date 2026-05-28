@@ -1,3 +1,39 @@
+// Gera e baixa arquivo .ics com os dois eventos da formatura
+document.getElementById('btn-calendario')?.addEventListener('click', () => {
+  const ics = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//Formatura Kristen 2026//PT',
+    'CALSCALE:GREGORIAN',
+
+    'BEGIN:VEVENT',
+    'SUMMARY:Colação de Grau · Kristen Karsburg Arguello',
+    'DTSTART;TZID=America/Sao_Paulo:20260815T200000',
+    'DTEND;TZID=America/Sao_Paulo:20260815T213000',
+    'LOCATION:Salão de Atos\\, PUC-RS\\, Av. Ipiranga 6681\\, Porto Alegre',
+    'DESCRIPTION:Formatura de Ciência da Computação',
+    'END:VEVENT',
+
+    'BEGIN:VEVENT',
+    'SUMMARY:Jantar de Comemoração · Kristen Karsburg Arguello',
+    'DTSTART;TZID=America/Sao_Paulo:20260815T213000',
+    'DTEND;TZID=America/Sao_Paulo:20260815T233000',
+    'LOCATION:Gui Olivier Cocina de la Madre\\, Porto Alegre',
+    'DESCRIPTION:Jantar de comemoração da formatura de Kristen',
+    'END:VEVENT',
+
+    'END:VCALENDAR',
+  ].join('\r\n');
+
+  const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href     = url;
+  a.download = 'formatura-kristen.ics';
+  a.click();
+  URL.revokeObjectURL(url);
+});
+
 // Máscara e validação de celular brasileiro
 const celularInput = document.getElementById('celular');
 const celularErro  = document.getElementById('celular-erro');
