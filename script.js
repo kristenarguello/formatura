@@ -19,21 +19,13 @@ if (form) {
 
     const data = new URLSearchParams(new FormData(form));
 
-    try {
-      const res = await fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: data.toString(),
-      });
-
-      if (res.ok) {
-        showSuccess();
-      } else {
-        alert('Ops, algo deu errado. Tente novamente ou entre em contato.');
-      }
-    } catch {
-      alert('Ops, algo deu errado. Verifique sua conexão e tente novamente.');
-    }
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: data.toString(),
+    })
+      .then(() => showSuccess())
+      .catch(() => alert('Ops, algo deu errado. Verifique sua conexão e tente novamente.'));
   });
 }
 
