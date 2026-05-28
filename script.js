@@ -1,31 +1,44 @@
-// Gera e baixa arquivo .ics com os dois eventos da formatura
+// Eventos confirmados — preenchidos no submit
+let vaiColacao = false;
+let vaiJantar  = false;
+
+function gerarEvento(summary, dtstart, dtend, location, description) {
+  return [
+    'BEGIN:VEVENT',
+    `SUMMARY:${summary}`,
+    `DTSTART;TZID=America/Sao_Paulo:${dtstart}`,
+    `DTEND;TZID=America/Sao_Paulo:${dtend}`,
+    `LOCATION:${location}`,
+    `DESCRIPTION:${description}`,
+    'END:VEVENT',
+  ];
+}
+
 document.getElementById('btn-calendario')?.addEventListener('click', () => {
-  const ics = [
+  const linhas = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
     'PRODID:-//Formatura Kristen 2026//PT',
     'CALSCALE:GREGORIAN',
+  ];
 
-    'BEGIN:VEVENT',
-    'SUMMARY:Colação de Grau · Kristen Karsburg Arguello',
-    'DTSTART;TZID=America/Sao_Paulo:20260815T200000',
-    'DTEND;TZID=America/Sao_Paulo:20260815T213000',
-    'LOCATION:Salão de Atos\\, PUC-RS\\, Av. Ipiranga 6681\\, Porto Alegre',
-    'DESCRIPTION:Formatura de Ciência da Computação',
-    'END:VEVENT',
+  if (vaiColacao) linhas.push(...gerarEvento(
+    'Colação de Grau · Kristen Karsburg Arguello',
+    '20260815T200000', '20260815T213000',
+    'Salão de Atos\\, PUC-RS\\, Av. Ipiranga 6681\\, Porto Alegre',
+    'Formatura de Ciência da Computação'
+  ));
 
-    'BEGIN:VEVENT',
-    'SUMMARY:Jantar de Comemoração · Kristen Karsburg Arguello',
-    'DTSTART;TZID=America/Sao_Paulo:20260815T213000',
-    'DTEND;TZID=America/Sao_Paulo:20260815T233000',
-    'LOCATION:Gui Olivier Cocina de la Madre\\, Porto Alegre',
-    'DESCRIPTION:Jantar de comemoração da formatura de Kristen',
-    'END:VEVENT',
+  if (vaiJantar) linhas.push(...gerarEvento(
+    'Jantar de Comemoração · Kristen Karsburg Arguello',
+    '20260815T213000', '20260815T233000',
+    'Gui Olivier Cocina de la Madre\\, Porto Alegre',
+    'Jantar de comemoração da formatura de Kristen'
+  ));
 
-    'END:VCALENDAR',
-  ].join('\r\n');
+  linhas.push('END:VCALENDAR');
 
-  const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+  const blob = new Blob([linhas.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
   const url  = URL.createObjectURL(blob);
   const a    = document.createElement('a');
   a.href     = url;
@@ -91,6 +104,10 @@ function showSuccess() {
 if (form) {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    // Captura quais eventos a pessoa confirmou para o calendário
+    vaiColacao = document.querySelector('input[name="colacao"]:checked')?.value === 'sim';
+    vaiJantar  = document.querySelector('input[name="jantar"]:checked')?.value === 'sim';
 
     // Valida celular só se preenchido
     if (celularInput && celularInput.value.trim() !== '' && !celularValido(celularInput.value)) {
