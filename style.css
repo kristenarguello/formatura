@@ -327,6 +327,16 @@ ul { list-style: none; }
   color: var(--dark);
 }
 
+.event-venue-sub {
+  font-size: 11px;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+
 .event-venue {
   font-size: 14px;
   font-weight: 500;

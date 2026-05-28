@@ -30,10 +30,10 @@ document.getElementById('btn-calendario')?.addEventListener('click', () => {
   ));
 
   if (vaiJantar) linhas.push(...gerarEvento(
-    'Jantar de Comemoração · Kristen Karsburg Arguello',
+    'Festa de Comemoração · Kristen Karsburg Arguello',
     '20260815T213000', '20260815T233000',
     'Gui Olivier Cocina de la Madre\\, Porto Alegre',
-    'Jantar de comemoração da formatura de Kristen'
+    'Jantar + pista de dança + bar & docinhos'
   ));
 
   linhas.push('END:VCALENDAR');
