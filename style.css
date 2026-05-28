@@ -499,6 +499,13 @@ select {
 
 .hidden { display: none; }
 
+.field-error {
+  font-size: 11px;
+  color: #b04a4a;
+  font-family: var(--font-sans);
+  margin-top: 4px;
+}
+
 .success-msg {
   margin-top: 32px;
   padding: 24px 32px;
@@ -595,6 +602,12 @@ select {
   transition: color 0.2s;
 }
 .footer-links a:hover { color: var(--gold-lt); }
+
+.footer-made {
+  font-size: 10px;
+  color: #6b6258;
+  margin-top: 16px;
+}
 
 .footer-copy {
   font-size: 11px;

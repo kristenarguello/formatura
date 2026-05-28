@@ -192,8 +192,9 @@
         </div>
 
         <div class="form-group">
-          <label for="contato">Telefone ou e-mail *</label>
-          <input type="text" id="contato" name="contato" required placeholder="(51) 9 0000-0000 ou email@exemplo.com" />
+          <label for="celular">Celular</label>
+          <input type="tel" id="celular" name="celular" placeholder="(51) 9 9999-9999" maxlength="16" inputmode="numeric" />
+          <span class="field-error hidden" id="celular-erro">Número inválido. Informe um celular brasileiro com DDD.</span>
         </div>
 
         <div class="form-row">
@@ -223,14 +224,16 @@
         </div>
 
         <div class="form-group">
-          <label for="acompanhantes">Número de acompanhantes</label>
+          <label for="acompanhantes">Acompanhante</label>
           <select id="acompanhantes" name="acompanhantes">
             <option value="0">Somente eu</option>
             <option value="1">1 acompanhante</option>
-            <option value="2">2 acompanhantes</option>
-            <option value="3">3 acompanhantes</option>
-            <option value="4">4+ acompanhantes</option>
           </select>
+        </div>
+
+        <div class="form-group hidden" id="grupo-nome-acompanhante">
+          <label for="nome-acompanhante">Nome do acompanhante *</label>
+          <input type="text" id="nome-acompanhante" name="nome-acompanhante" placeholder="Nome completo" />
         </div>
 
         <div class="form-group">
@@ -244,6 +247,9 @@
       <div id="rsvp-success" class="success-msg hidden">
         <p>🎓 Que alegria! Sua presença foi confirmada. Até lá!</p>
         <p class="success-sub">Se algo mudar até lá, não hesite em me avisar.</p>
+        <button class="btn btn-outline" id="btn-calendario" style="margin-top:8px;">
+          Salvar no calendário
+        </button>
       </div>
     </div>
   </section>
@@ -296,6 +302,7 @@
     </div>
 
     <p class="footer-copy">15 de agosto de 2026 · Porto Alegre</p>
+    <p class="footer-made">Site desenvolvido pela própria formanda · Em caso de problemas, entre em contato.</p>
   </footer>
 
   <script src="script.js"></script>
