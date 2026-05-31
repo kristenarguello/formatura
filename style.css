@@ -62,6 +62,7 @@ ul { list-style: none; }
   transition: color 0.2s;
 }
 #nav a:hover { color: var(--gold); }
+.nav-short { display: none; }
 
 /* ─── BUTTONS ─────────────────────────────────────────── */
 .btn {
@@ -700,6 +701,8 @@ select {
   /* Nav */
   #nav ul { gap: 20px; }
   #nav a { font-size: 10px; }
+  .nav-full { display: none; }
+  .nav-short { display: inline; }
 
   /* Hero */
   #hero {
