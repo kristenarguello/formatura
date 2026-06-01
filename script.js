@@ -1,5 +1,5 @@
 // ─── CONFIG GOOGLE SHEETS ─────────────────────────────────
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzLs5B6KZWujVhnJS_eVd99xL7AaRpI2jW2qyRBqEH6DL1HHozuDj5cQzGix0oPnsnX/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw9GoWSmS2yk82q33_H-Ul1hitYdaecguyELkTV3T6zhg_dW2gBxjB2oGiuoX6CBUk0/exec';
 // ──────────────────────────────────────────────────────────
 
 async function salvarNoPlanilha(dados) {
