@@ -1,4 +1,59 @@
-// Eventos confirmados — preenchidos no submit
+// ─── CONFIG GITHUB ────────────────────────────────────────
+const GITHUB_TOKEN = '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';
+const GITHUB_OWNER = 'kristenarguello';
+const GITHUB_REPO  = 'rsvp-formatura';
+const GITHUB_FILE  = 'rsvp.csv';
+// ──────────────────────────────────────────────────────────
+
+const CSV_HEADER = 'Data,Nome,Celular,Colação,Festa,Acompanhante,Nº Acompanhantes,Observação\n';
+
+async function salvarNoGithub(dados) {
+  const apiUrl  = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_FILE}`;
+  const headers = {
+    'Authorization': `Bearer ${GITHUB_TOKEN}`,
+    'Accept': 'application/vnd.github+json',
+    'Content-Type': 'application/json',
+  };
+
+  // Busca arquivo atual (para pegar SHA e conteúdo existente)
+  const getRes   = await fetch(apiUrl, { headers });
+  let sha        = null;
+  let csvAtual   = CSV_HEADER;
+
+  if (getRes.ok) {
+    const fileData = await getRes.json();
+    sha      = fileData.sha;
+    csvAtual = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
+  }
+
+  // Monta nova linha
+  const agora = new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' });
+  const linha = [
+    agora,
+    dados.name              || '',
+    dados.celular           || '',
+    dados.colacao           || '',
+    dados.jantar            || '',
+    dados['nome-acompanhante'] || '',
+    dados.acompanhantes     || '0',
+    (dados.observacao       || '').replace(/"/g, "'"),
+  ].map(v => `"${v}"`).join(',') + '\n';
+
+  const novoConteudo = csvAtual + linha;
+  const novoBase64   = btoa(unescape(encodeURIComponent(novoConteudo)));
+
+  // Atualiza (ou cria) o arquivo no GitHub
+  const body = { message: `RSVP: ${dados.name}`, content: novoBase64 };
+  if (sha) body.sha = sha;
+
+  const putRes = await fetch(apiUrl, { method: 'PUT', headers, body: JSON.stringify(body) });
+  if (!putRes.ok) {
+    const err = await putRes.json();
+    throw new Error(err.message || 'Erro ao salvar no GitHub');
+  }
+}
+
+// ─── CALENDÁRIO ───────────────────────────────────────────
 let vaiColacao = false;
 let vaiJantar  = false;
 
@@ -47,7 +102,7 @@ document.getElementById('btn-calendario')?.addEventListener('click', () => {
   URL.revokeObjectURL(url);
 });
 
-// Máscara e validação de celular brasileiro
+// ─── CELULAR ──────────────────────────────────────────────
 const celularInput = document.getElementById('celular');
 const celularErro  = document.getElementById('celular-erro');
 
@@ -61,7 +116,6 @@ function mascaraCelular(valor) {
 
 function celularValido(valor) {
   const d = valor.replace(/\D/g, '');
-  // celular BR: 11 dígitos, 3º dígito é 9
   return d.length === 11 && d[2] === '9';
 }
 
@@ -72,8 +126,8 @@ if (celularInput) {
   });
 }
 
-// Campo nome do acompanhante — aparece só quando selecionado 1 acompanhante
-const selectAcomp = document.getElementById('acompanhantes');
+// ─── ACOMPANHANTE ─────────────────────────────────────────
+const selectAcomp    = document.getElementById('acompanhantes');
 const grupoNomeAcomp = document.getElementById('grupo-nome-acompanhante');
 const inputNomeAcomp = document.getElementById('nome-acompanhante');
 
@@ -86,15 +140,16 @@ if (selectAcomp) {
   });
 }
 
-// Nav background on scroll
+// ─── NAV SCROLL ───────────────────────────────────────────
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 40);
 }, { passive: true });
 
-// RSVP form: show success message after Netlify submit
-const form = document.getElementById('rsvp-form');
+// ─── FORMULÁRIO ───────────────────────────────────────────
+const form    = document.getElementById('rsvp-form');
 const success = document.getElementById('rsvp-success');
+
 function showSuccess() {
   form.classList.add('hidden');
   success.classList.remove('hidden');
@@ -105,30 +160,28 @@ if (form) {
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    // Captura quais eventos a pessoa confirmou para o calendário
     vaiColacao = document.querySelector('input[name="colacao"]:checked')?.value === 'sim';
     vaiJantar  = document.querySelector('input[name="jantar"]:checked')?.value === 'sim';
 
-    // Valida celular só se preenchido
     if (celularInput && celularInput.value.trim() !== '' && !celularValido(celularInput.value)) {
       celularErro.classList.remove('hidden');
       celularInput.focus();
       return;
     }
 
-    const data = new URLSearchParams(new FormData(form));
+    const dados = Object.fromEntries(new FormData(form));
 
-    fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: data.toString(),
-    })
-      .then(() => showSuccess())
-      .catch(() => alert('Ops, algo deu errado. Verifique sua conexão e tente novamente.'));
+    try {
+      await salvarNoGithub(dados);
+      showSuccess();
+    } catch (err) {
+      console.error(err);
+      alert('Ops, algo deu errado. Verifique sua conexão e tente novamente.');
+    }
   });
 }
 
-// Smooth-reveal sections on scroll
+// ─── REVEAL ANIMATION ─────────────────────────────────────
 const revealEls = document.querySelectorAll('section, .event-card, .gallery-item');
 
 const observer = new IntersectionObserver(
