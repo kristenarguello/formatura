@@ -629,6 +629,15 @@ select {
   line-height: 1.6;
 }
 
+.extras-contato {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  color: var(--light);
+  margin-top: 20px;
+}
+
 .instrucoes-titulo {
   font-family: var(--font-sans);
   font-size: 11px;

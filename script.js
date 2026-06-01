@@ -63,7 +63,7 @@ document.getElementById('btn-calendario')?.addEventListener('click', () => {
   if (vaiColacao) linhas.push(...gerarEvento(
     'Colação de Grau · Kristen Karsburg Arguello',
     '20260815T200000', '20260815T213000',
-    'Salão de Atos\\, PUC-RS\\, Av. Ipiranga 6681\\, Porto Alegre',
+    'Salão de Atos\\, PUC-RS\\, Av. Ipiranga 6681 - Portão 4\\, Porto Alegre',
     'Formatura de Ciência da Computação'
   ));
 
