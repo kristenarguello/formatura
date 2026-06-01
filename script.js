@@ -2,13 +2,37 @@
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw9GoWSmS2yk82q33_H-Ul1hitYdaecguyELkTV3T6zhg_dW2gBxjB2oGiuoX6CBUk0/exec';
 // ──────────────────────────────────────────────────────────
 
-async function salvarNoPlanilha(dados) {
-  const payload = { ...dados, senha: 'formatura2026' };
-  await fetch(APPS_SCRIPT_URL, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: new URLSearchParams(payload).toString(),
+function salvarNoPlanilha(dados) {
+  return new Promise((resolve) => {
+    const payload = { ...dados, senha: 'formatura2026' };
+
+    const iframe = document.createElement('iframe');
+    iframe.name = 'rsvp-iframe';
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
+
+    const tempForm = document.createElement('form');
+    tempForm.method = 'POST';
+    tempForm.action = APPS_SCRIPT_URL;
+    tempForm.target = 'rsvp-iframe';
+
+    Object.entries(payload).forEach(([key, value]) => {
+      const input = document.createElement('input');
+      input.type  = 'hidden';
+      input.name  = key;
+      input.value = value ?? '';
+      tempForm.appendChild(input);
+    });
+
+    document.body.appendChild(tempForm);
+
+    iframe.onload = () => {
+      document.body.removeChild(tempForm);
+      document.body.removeChild(iframe);
+      resolve();
+    };
+
+    tempForm.submit();
   });
 }
 
