@@ -2,11 +2,11 @@
 :root {
   --cream:    #f8f4ee;
   --cream-2:  #f0ebe2;
-  --gold:     #b8965a;
-  --gold-lt:  #d4b07a;
-  --dark:     #1e1a14;
-  --mid:      #6b6258;
-  --light:    #a59d92;
+  --gold:     #547792;
+  --gold-lt:  #94B4C1;
+  --dark:     #213448;
+  --mid:      #3d6070;
+  --light:    #94B4C1;
   --white:    #ffffff;
 
   --font-serif:  'Cormorant Garamond', Georgia, serif;
@@ -710,14 +710,14 @@ select {
 
 .footer-made {
   font-size: 10px;
-  color: #6b6258;
+  color: #94B4C1;
   margin-top: 16px;
 }
 
 .footer-copy {
   font-size: 11px;
   letter-spacing: 0.08em;
-  color: #4a4540;
+  color: #547792;
   margin-top: 8px;
 }
 
