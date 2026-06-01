@@ -1,56 +1,15 @@
-// ─── CONFIG GITHUB ────────────────────────────────────────
-const GITHUB_TOKEN = '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';
-const GITHUB_OWNER = 'kristenarguello';
-const GITHUB_REPO  = 'rsvp-formatura';
-const GITHUB_FILE  = 'rsvp.csv';
+// ─── CONFIG GOOGLE SHEETS ─────────────────────────────────
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzLs5B6KZWujVhnJS_eVd99xL7AaRpI2jW2qyRBqEH6DL1HHozuDj5cQzGix0oPnsnX/exec';
 // ──────────────────────────────────────────────────────────
 
-const CSV_HEADER = 'Data,Nome,Celular,Colação,Festa,Acompanhante,Nº Acompanhantes,Observação\n';
-
-async function salvarNoGithub(dados) {
-  const apiUrl  = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_FILE}`;
-  const headers = {
-    'Authorization': `Bearer ${GITHUB_TOKEN}`,
-    'Accept': 'application/vnd.github+json',
-    'Content-Type': 'application/json',
-  };
-
-  // Busca arquivo atual (para pegar SHA e conteúdo existente)
-  const getRes   = await fetch(apiUrl, { headers });
-  let sha        = null;
-  let csvAtual   = CSV_HEADER;
-
-  if (getRes.ok) {
-    const fileData = await getRes.json();
-    sha      = fileData.sha;
-    csvAtual = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
-  }
-
-  // Monta nova linha
-  const agora = new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' });
-  const linha = [
-    agora,
-    dados.name              || '',
-    dados.celular           || '',
-    dados.colacao           || '',
-    dados.jantar            || '',
-    dados['nome-acompanhante'] || '',
-    dados.acompanhantes     || '0',
-    (dados.observacao       || '').replace(/"/g, "'"),
-  ].map(v => `"${v}"`).join(',') + '\n';
-
-  const novoConteudo = csvAtual + linha;
-  const novoBase64   = btoa(unescape(encodeURIComponent(novoConteudo)));
-
-  // Atualiza (ou cria) o arquivo no GitHub
-  const body = { message: `RSVP: ${dados.name}`, content: novoBase64 };
-  if (sha) body.sha = sha;
-
-  const putRes = await fetch(apiUrl, { method: 'PUT', headers, body: JSON.stringify(body) });
-  if (!putRes.ok) {
-    const err = await putRes.json();
-    throw new Error(err.message || 'Erro ao salvar no GitHub');
-  }
+async function salvarNoPlanilha(dados) {
+  const payload = { ...dados, senha: 'formatura2026' };
+  await fetch(APPS_SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams(payload).toString(),
+  });
 }
 
 // ─── CALENDÁRIO ───────────────────────────────────────────
@@ -172,7 +131,7 @@ if (form) {
     const dados = Object.fromEntries(new FormData(form));
 
     try {
-      await salvarNoGithub(dados);
+      await salvarNoPlanilha(dados);
       showSuccess();
     } catch (err) {
       console.error(err);

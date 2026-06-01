@@ -87,8 +87,8 @@ ul { list-style: none; }
   border-color: var(--gold);
 }
 .btn-primary:hover {
-  background: #a07840;
-  border-color: #a07840;
+  background: #213448;
+  border-color: #213448;
 }
 .btn-outline {
   background: transparent;
