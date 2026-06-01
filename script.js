@@ -153,12 +153,17 @@ if (form) {
     }
 
     const dados = Object.fromEntries(new FormData(form));
+    const btnSubmit = form.querySelector('button[type="submit"]');
+    btnSubmit.disabled = true;
+    btnSubmit.textContent = 'Enviando...';
 
     try {
       await salvarNoPlanilha(dados);
       showSuccess();
     } catch (err) {
       console.error(err);
+      btnSubmit.disabled = false;
+      btnSubmit.textContent = 'Confirmar presença';
       alert('Ops, algo deu errado. Verifique sua conexão e tente novamente.');
     }
   });
