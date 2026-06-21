@@ -89,37 +89,36 @@ document.getElementById('btn-calendario')?.addEventListener('click', () => {
 const celularInput = document.getElementById('celular');
 const celularErro  = document.getElementById('celular-erro');
 
-function mascaraCelular(valor) {
-  const d = valor.replace(/\D/g, '').slice(0, 11);
-  if (d.length <= 2)  return d.replace(/^(\d{0,2})/, '($1');
-  if (d.length <= 7)  return d.replace(/^(\d{2})(\d{0,5})/, '($1) $2');
-  if (d.length <= 11) return d.replace(/^(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3');
-  return valor;
-}
-
 function celularValido(valor) {
-  const d = valor.replace(/\D/g, '');
-  return d.length === 11 && d[2] === '9';
+  return valor.replace(/\D/g, '').length >= 6;
 }
 
 if (celularInput) {
   celularInput.addEventListener('input', () => {
-    celularInput.value = mascaraCelular(celularInput.value);
     celularErro.classList.add('hidden');
   });
 }
 
 // ─── ACOMPANHANTE ─────────────────────────────────────────
-const selectAcomp    = document.getElementById('acompanhantes');
-const grupoNomeAcomp = document.getElementById('grupo-nome-acompanhante');
-const inputNomeAcomp = document.getElementById('nome-acompanhante');
+const selectAcomp     = document.getElementById('acompanhantes');
+const grupoNomeAcomp  = document.getElementById('grupo-nome-acompanhante');
+const inputNomeAcomp  = document.getElementById('nome-acompanhante');
+const labelAcomp      = document.getElementById('label-acompanhante');
+const grupoNomeAcomp2 = document.getElementById('grupo-nome-acompanhante-2');
+const inputNomeAcomp2 = document.getElementById('nome-acompanhante-2');
 
 if (selectAcomp) {
   selectAcomp.addEventListener('change', () => {
-    const temAcomp = selectAcomp.value === '1';
-    grupoNomeAcomp.classList.toggle('hidden', !temAcomp);
-    inputNomeAcomp.required = temAcomp;
-    if (!temAcomp) inputNomeAcomp.value = '';
+    const val = parseInt(selectAcomp.value);
+
+    grupoNomeAcomp.classList.toggle('hidden', val < 1);
+    inputNomeAcomp.required = val >= 1;
+    if (val < 1) inputNomeAcomp.value = '';
+    labelAcomp.textContent = val === 2 ? 'Nome do acompanhante 1 *' : 'Nome do acompanhante *';
+
+    grupoNomeAcomp2.classList.toggle('hidden', val < 2);
+    inputNomeAcomp2.required = val >= 2;
+    if (val < 2) inputNomeAcomp2.value = '';
   });
 }
 
