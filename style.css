@@ -54,7 +54,7 @@ ul { list-style: none; }
   gap: 40px;
 }
 #nav a {
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 500;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -70,7 +70,7 @@ ul { list-style: none; }
   align-items: center;
   justify-content: center;
   font-family: var(--font-sans);
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 500;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -115,7 +115,7 @@ ul { list-style: none; }
   max-width: var(--max-narrow);
 }
 .section-tag {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.25em;
   text-transform: uppercase;
@@ -124,14 +124,14 @@ ul { list-style: none; }
 }
 .section-title {
   font-family: var(--font-serif);
-  font-size: clamp(28px, 5vw, 46px);
+  font-size: clamp(30px, 5vw, 50px);
   font-weight: 400;
   line-height: 1.15;
   color: var(--dark);
   margin-bottom: 40px;
 }
 .section-sub {
-  font-size: 15px;
+  font-size: 17px;
   color: var(--mid);
   margin-top: 16px;
   margin-bottom: 40px;
@@ -174,7 +174,7 @@ ul { list-style: none; }
 }
 
 .hero-pre {
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 400;
   letter-spacing: 0.05em;
   color: var(--mid);
@@ -218,7 +218,7 @@ ul { list-style: none; }
 }
 .hero-month {
   font-family: var(--font-sans);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
   letter-spacing: 0.3em;
   text-transform: uppercase;
@@ -235,7 +235,7 @@ ul { list-style: none; }
   font-feature-settings: "lnum" 1, "onum" 0;
 }
 .hero-weekday {
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--light);
@@ -262,7 +262,7 @@ ul { list-style: none; }
   align-items: center;
   justify-content: center;
   color: var(--light);
-  font-size: 13px;
+  font-size: 15px;
   letter-spacing: 0.1em;
 }
 
@@ -289,7 +289,18 @@ ul { list-style: none; }
   text-align: center;
 }
 #programacao .section-title {
-  margin-bottom: 60px;
+  margin-bottom: 20px;
+}
+
+.section-notice {
+  font-size: 17px;
+  color: var(--mid);
+  line-height: 1.65;
+  max-width: 520px;
+  margin: 0 auto 48px;
+  padding: 16px 20px;
+  border-left: 2px solid var(--gold-lt);
+  text-align: left;
 }
 
 .events-grid {
@@ -319,7 +330,7 @@ ul { list-style: none; }
 
 .event-time {
   font-family: var(--font-serif);
-  font-size: 36px;
+  font-size: 40px;
   font-weight: 300;
   color: var(--gold);
   line-height: 1;
@@ -327,13 +338,13 @@ ul { list-style: none; }
 
 .event-title {
   font-family: var(--font-serif);
-  font-size: 22px;
+  font-size: 25px;
   font-weight: 400;
   color: var(--dark);
 }
 
 .event-venue-sub {
-  font-size: 11px;
+  font-size: 13px;
   font-family: var(--font-sans);
   font-weight: 400;
   letter-spacing: 0.1em;
@@ -343,21 +354,21 @@ ul { list-style: none; }
 }
 
 .event-venue {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
   color: var(--dark);
   letter-spacing: 0.03em;
 }
 
 .event-address {
-  font-size: 13px;
+  font-size: 15px;
   color: var(--mid);
   text-align: center;
   margin-bottom: 8px;
 }
 
 .event-note {
-  font-size: 11px;
+  font-size: 13px;
   color: var(--light);
   text-align: center;
   line-height: 1.5;
@@ -375,7 +386,7 @@ ul { list-style: none; }
 }
 
 .rsvp-deadline {
-  font-size: 13px;
+  font-size: 15px;
   color: var(--mid);
   letter-spacing: 0.02em;
 }
@@ -422,6 +433,35 @@ ul { list-style: none; }
 }
 .gallery-item:hover img { transform: scale(1.04); }
 
+.photo-credit {
+  margin-top: 2.5rem;
+  text-align: center;
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mid);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.85rem;
+}
+.photo-credit::before,
+.photo-credit::after {
+  content: '';
+  display: block;
+  width: 2.5rem;
+  height: 1px;
+  background: var(--mid);
+  opacity: 0.35;
+}
+.photo-credit a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.photo-credit a:hover { color: var(--dark); }
+
 /* ─── RSVP ──────────────────────────────────────────── */
 #rsvp {
   background: var(--white);
@@ -451,7 +491,7 @@ form {
 }
 
 label {
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -464,7 +504,7 @@ input[type="tel"],
 select,
 textarea {
   font-family: var(--font-sans);
-  font-size: 15px;
+  font-size: 17px;
   color: var(--dark);
   background: var(--cream);
   border: 1px solid var(--cream-2);
@@ -498,7 +538,7 @@ select {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
   letter-spacing: 0;
   text-transform: none;
@@ -515,7 +555,7 @@ select {
 .hidden { display: none; }
 
 .field-error {
-  font-size: 11px;
+  font-size: 13px;
   color: #b04a4a;
   font-family: var(--font-sans);
   margin-top: 4px;
@@ -527,7 +567,7 @@ select {
   background: var(--cream);
   text-align: center;
   font-family: var(--font-serif);
-  font-size: 26px;
+  font-size: 28px;
   color: var(--dark);
   display: flex;
   flex-direction: column;
@@ -536,7 +576,7 @@ select {
 .success-msg.hidden { display: none; }
 
 .success-sub {
-  font-size: 12px;
+  font-size: 14px;
   font-family: var(--font-sans);
   font-weight: 300;
   letter-spacing: 0.05em;
@@ -570,7 +610,7 @@ select {
   height: auto;
 }
 .dresscode-icon figcaption {
-  font-size: 10px;
+  font-size: 12px;
   font-family: var(--font-sans);
   font-weight: 400;
   letter-spacing: 0.15em;
@@ -586,7 +626,7 @@ select {
   gap: 4px;
 }
 .dresscode-section-label {
-  font-size: 9px;
+  font-size: 11px;
   font-family: var(--font-sans);
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -598,14 +638,14 @@ select {
 .dresscode-tag {
   font-family: var(--font-serif);
   font-style: italic;
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 400;
   color: var(--gold);
   margin-bottom: 16px;
 }
 
 .extras-text {
-  font-size: 16px;
+  font-size: 18px;
   color: var(--mid);
   line-height: 1.7;
   margin-bottom: 32px;
@@ -624,23 +664,23 @@ select {
 .extras-quote {
   font-family: var(--font-serif);
   font-style: italic;
-  font-size: clamp(18px, 3vw, 24px);
+  font-size: clamp(20px, 3vw, 26px);
   color: var(--mid);
   line-height: 1.6;
 }
 
 .extras-contato {
   font-family: var(--font-sans);
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 300;
   letter-spacing: 0.05em;
-  color: var(--light);
+  color: var(--mid);
   margin-top: 20px;
 }
 
 .instrucoes-titulo {
   font-family: var(--font-sans);
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -658,7 +698,7 @@ select {
 
 .instrucoes-lista li {
   font-family: var(--font-serif);
-  font-size: 18px;
+  font-size: 20px;
   color: var(--mid);
   display: flex;
   align-items: baseline;
@@ -668,13 +708,13 @@ select {
 .instrucoes-lista li::before {
   content: "—";
   color: var(--gold-lt);
-  font-size: 14px;
+  font-size: 16px;
   flex-shrink: 0;
 }
 
 .instrucoes-assina {
   font-family: var(--font-script);
-  font-size: 26px;
+  font-size: 28px;
   color: var(--gold-lt);
 }
 
@@ -692,13 +732,13 @@ select {
 
 .footer-script {
   font-family: var(--font-script);
-  font-size: 28px;
+  font-size: 30px;
   color: var(--gold-lt);
 }
 
 .footer-name {
   font-family: var(--font-serif);
-  font-size: 28px;
+  font-size: 30px;
   font-weight: 300;
   color: var(--white);
   letter-spacing: 0.05em;
@@ -710,7 +750,7 @@ select {
   flex-wrap: wrap;
   justify-content: center;
   gap: 8px 16px;
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--light);
@@ -722,13 +762,13 @@ select {
 .footer-links a:hover { color: var(--gold-lt); }
 
 .footer-made {
-  font-size: 10px;
+  font-size: 12px;
   color: #94B4C1;
   margin-top: 16px;
 }
 
 .footer-copy {
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.08em;
   color: #547792;
   margin-top: 8px;
@@ -753,7 +793,7 @@ select {
 
   /* Nav */
   #nav ul { gap: 20px; }
-  #nav a { font-size: 10px; }
+  #nav a { font-size: 12px; }
   .nav-full { display: none; }
   .nav-short { display: inline; }
 
